@@ -1006,8 +1006,8 @@ module cheshire_bootrom #(
             974: data_o = 32'hf0eff83e /* 0x0f38 */;
             975: data_o = 32'h2501e0bf /* 0x0f3c */;
             976: data_o = 32'h842ad161 /* 0x0f40 */;
-            977: data_o = 32'h6489b771 /* 0x0f44 */;
-            978: data_o = 32'h71048493 /* 0x0f48 */;
+            977: data_o = 32'h64e1b771 /* 0x0f44 */;
+            978: data_o = 32'h6a048493 /* 0x0f48 */;
             979: data_o = 32'h0a134b11 /* 0x0f4c */;
             980: data_o = 32'h49850171 /* 0x0f50 */;
             981: data_o = 32'hc49da029 /* 0x0f54 */;
@@ -1106,8 +1106,8 @@ module cheshire_bootrom #(
             1074: data_o = 32'h089ce43e /* 0x10c8 */;
             1075: data_o = 32'h0b3397e2 /* 0x10cc */;
             1076: data_o = 32'h4c81418b /* 0x10d0 */;
-            1077: data_o = 32'h6709e83e /* 0x10d4 */;
-            1078: data_o = 32'h71070d93 /* 0x10d8 */;
+            1077: data_o = 32'h6761e83e /* 0x10d4 */;
+            1078: data_o = 32'h6a070d93 /* 0x10d8 */;
             1079: data_o = 32'h09934a11 /* 0x10dc */;
             1080: data_o = 32'h49050251 /* 0x10e0 */;
             1081: data_o = 32'h0ff00a93 /* 0x10e4 */;
