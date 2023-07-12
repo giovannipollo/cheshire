@@ -151,3 +151,6 @@ set_max_delay -datapath -from [get_pins i_axi_cdc_mig/i_axi_cdc_*/i_cdc_fifo_gra
 
 set_max_delay -from [get_pins {i_rstgen_main/i_rstgen_bypass/synch_regs_q_reg[3]/C}] $SOC_TCK
 set_false_path -hold -from [get_pins {i_rstgen_main/i_rstgen_bypass/synch_regs_q_reg[3]/C}]
+set_false_path -through [get_nets sys_rst]
+
+set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets i_xlnx_clk_wiz/inst/clk_in1_xlnx_clk_wiz]

@@ -12,6 +12,7 @@ module cheshire_top_xilinx
 (
   input logic         sysclk_p,
   input logic         sysclk_n,
+
   input logic         cpu_resetn,
 
   input logic         test_mode_i,
@@ -155,9 +156,9 @@ module cheshire_top_xilinx
 
   wire dram_clock_out;
   wire dram_sync_reset;
-  wire soc_clk;
+  wire soc_clk, dram_clk;
 
-  logic rst_n;
+  logic sys_rst, rst_n;
 
   // Statically assign the response user signals
   // B Channel user
@@ -166,24 +167,18 @@ module cheshire_top_xilinx
   // R Channel user
   assign dram_resp.r.user      = '0;
 
-  ///////////////////
-  // Clock Divider //
-  ///////////////////
+  //////////////////
+  // Clock Wizard //
+  //////////////////
 
-  clk_int_div #(
-    .DIV_VALUE_WIDTH          ( 4             ),
-    .DEFAULT_DIV_VALUE        ( 4'h4          ),
-    .ENABLE_CLOCK_IN_RESET    ( 1'b0          )
-  ) i_sys_clk_div (
-    .clk_i                ( dram_clock_out    ),
-    .rst_ni               ( ~dram_sync_reset  ),
-    .en_i                 ( 1'b1              ),
-    .test_mode_en_i       ( testmode_i        ),
-    .div_i                ( 4'h4              ),
-    .div_valid_i          ( 1'b0              ),
-    .div_ready_o          (                   ),
-    .clk_o                ( soc_clk           ),
-    .cycl_count_o         (                   )
+  xlnx_clk_wiz i_xlnx_clk_wiz (
+    .clk_in1_p (sysclk_p),
+    .clk_in1_n (sysclk_n),
+    .reset('0),
+    .clk_100( dram_clk ),
+    .clk_50 ( soc_clk  ),
+    .clk_20 ( ),
+    .clk_10 ( )
   );
 
   /////////////////////
@@ -192,11 +187,27 @@ module cheshire_top_xilinx
 
   rstgen i_rstgen_main (
     .clk_i        ( soc_clk                  ),
-    .rst_ni       ( ~dram_sync_reset         ),
-    .test_mode_i  ( test_en                  ),
+    .rst_ni       ( ~sys_rst                 ),
+    .test_mode_i  ( test_mode_i              ),
     .rst_no       ( rst_n                    ),
     .init_no      (                          ) // keep open
   );
+
+  ///////////////////
+  // VIOs          //
+  ///////////////////
+
+  logic       vio_reset, vio_boot_mode_sel;
+  logic [1:0] vio_boot_mode;
+
+  xlnx_vio i_xlnx_vio (
+    .clk(soc_clk),
+    .probe_out0(vio_reset),
+    .probe_out1(vio_boot_mode),
+    .probe_out2(vio_boot_mode_sel)
+  );
+  assign sys_rst = ~cpu_resetn | vio_reset;
+  assign boot_mode = vio_boot_mode_sel ? vio_boot_mode : boot_mode_i;
 
 
   ///////////////////////////////////////////
@@ -250,8 +261,7 @@ module cheshire_top_xilinx
   //////////////
 
   xlnx_mig_7_ddr3 i_dram (
-    .sys_clk_p       ( sysclk_p               ),
-    .sys_clk_n       ( sysclk_n               ),
+    .sys_clk_i       ( dram_clk ),
     .ddr3_dq,
     .ddr3_dqs_n,
     .ddr3_dqs_p,
@@ -316,7 +326,7 @@ module cheshire_top_xilinx
     .s_axi_rvalid    ( dram_resp.r_valid      ),
     .init_calib_complete (                    ), // keep open
     .device_temp         (                    ), // keep open
-    .sys_rst             ( cpu_resetn         )
+    .sys_rst             ( sys_rst            )
   );
 
 
@@ -473,7 +483,7 @@ module cheshire_top_xilinx
     .clk_i              ( soc_clk ),
     .rst_ni             ( rst_n   ),
     .test_mode_i,
-    .boot_mode_i,
+    .boot_mode_i        ( boot_mode ),
     .rtc_i              ( rtc_clk_q             ),
     .axi_llc_mst_req_o  ( axi_llc_mst_req ),
     .axi_llc_mst_rsp_i  ( axi_llc_mst_rsp ),
