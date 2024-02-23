@@ -54,7 +54,8 @@ $$(CHS_XILINX_DIR)/out/%.$(1).bit: \
 	cd $$| && $(VIVADO) -mode batch -log ../$$*.$(1).log -jou ../$$*.$(1).jou -source $$< \
 		-tclargs "$(1) $$* $$(CHS_XILINX_IPS_$(1):%=$(CHS_XILINX_DIR)/build/$(1).%/out.xci)"
 
-chs_xilinx_$(1): $$(CHS_XILINX_DIR)/out/cheshire.$(1).bit
+.PHONY: chs-xilinx-$(1)
+chs-xilinx-$(1): $$(CHS_XILINX_DIR)/out/cheshire.$(1).bit
 endef
 
 $(foreach board,$(CHS_XILINX_BOARDS),$(eval $(call chs_xilinx_bit_rule,$(board))))
