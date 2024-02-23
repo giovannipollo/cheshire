@@ -158,10 +158,7 @@ CHS_SIM_ALL += $(CHS_ROOT)/target/sim/vsim/compile.cheshire_soc.tcl
 # FPGA Flow #
 #############
 
-$(CHS_ROOT)/target/xilinx/scripts/add_sources.tcl: Bender.yml
-	$(BENDER) script vivado -t fpga -t cv64a6_imafdcsclic_sv39 -t cva6 > $@
-
-CHS_XILINX_ALL += $(CHS_ROOT)/target/xilinx/scripts/add_sources.tcl
+include target/xilinx/xilinx.mk
 
 #################################
 # Phonies (KEEP AT END OF FILE) #
@@ -169,7 +166,7 @@ CHS_XILINX_ALL += $(CHS_ROOT)/target/xilinx/scripts/add_sources.tcl
 
 .PHONY: chs-all chs-nonfree-init chs-clean-deps chs-sw-all chs-hw-all chs-bootrom-all chs-sim-all chs-xilinx-all
 
-CHS_ALL += $(CHS_SW_ALL) $(CHS_HW_ALL) $(CHS_SIM_ALL) $(CHS_XILINX_ALL)
+CHS_ALL += $(CHS_SW_ALL) $(CHS_HW_ALL) $(CHS_SIM_ALL)
 
 chs-all:         $(CHS_ALL)
 chs-sw-all:      $(CHS_SW_ALL)
