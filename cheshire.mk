@@ -53,7 +53,7 @@ chs-clean-deps:
 ######################
 
 CHS_NONFREE_REMOTE ?= git@iis-git.ee.ethz.ch:pulp-restricted/cheshire-nonfree.git
-CHS_NONFREE_COMMIT ?= dafd3c1
+CHS_NONFREE_COMMIT ?= b82e9b5
 
 chs-nonfree-init:
 	git clone $(CHS_NONFREE_REMOTE) $(CHS_ROOT)/nonfree
