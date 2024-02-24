@@ -56,7 +56,7 @@ module dram_wrapper_xilinx #(
 `ifdef TARGET_VCU128
   localparam dram_cfg_t cfg = '{
     EnCdc         : 1,    // 333 MHz AXI (cf. CdcLogDepth)
-    CdcLogDepth   : 8,
+    CdcLogDepth   : 5,
     IdWidth       : 8,
     AddrWidth     : 32,
     DataWidth     : 512,
@@ -69,7 +69,7 @@ module dram_wrapper_xilinx #(
 `ifdef TARGET_GENESYS2
   localparam dram_cfg_t cfg = '{
     EnCdc         : 1,    // 200 MHz AXI (cf. CCdcLogDepth)
-    CdcLogDepth   : 8,
+    CdcLogDepth   : 5,
     IdWidth       : 4,    // Fixed
     AddrWidth     : 30,
     DataWidth     : 64,
