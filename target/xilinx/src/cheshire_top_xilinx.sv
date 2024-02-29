@@ -140,6 +140,7 @@ module cheshire_top_xilinx (
     Dma               : 1,
     SerialLink        : 0,
     Vga               : 1,
+    BusErr            : 1,
     // Debug
     DbgIdCode         : CheshireIdCode,
     DbgMaxReqs        : 4,
