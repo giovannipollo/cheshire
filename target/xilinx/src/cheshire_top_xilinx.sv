@@ -120,8 +120,8 @@ module cheshire_top_xilinx (
     AxiDataWidth      : 64,
     AxiUserWidth      : 2,  // Convention: bit 0 for core(s), bit 1 for serial link
     AxiMstIdWidth     : 2,
-    AxiMaxMstTrans    : 8,
-    AxiMaxSlvTrans    : 8,
+    AxiMaxMstTrans    : 24,
+    AxiMaxSlvTrans    : 24,
     AxiUserAmoMsb     : 1,
     AxiUserAmoLsb     : 0,
     RegMaxReadTxns    : 8,
