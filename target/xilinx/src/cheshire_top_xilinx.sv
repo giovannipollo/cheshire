@@ -128,6 +128,7 @@ module cheshire_top_xilinx (
     RegMaxWriteTxns   : 8,
     RegAmoNumCuts     : 1,
     RegAmoPostCut     : 1,
+    RegAdaptMemCut    : 1,
     // RTC
     RtcFreq           : 1000000,
     // Features
