@@ -49,7 +49,7 @@ switch $proj {
                     CONFIG.CLKOUT4_PHASE_ERROR {89.971} \
                 ] [get_ips $proj]
             }
-            vcu128 {
+            vcu128 or zcu102 {
                 set_property -dict  [list \
                     CONFIG.CLK_IN1_BOARD_INTERFACE {Custom} \
                     CONFIG.RESET_BOARD_INTERFACE {Custom} \
@@ -95,7 +95,7 @@ switch $proj {
                     CONFIG.C_NUM_PROBE_IN {0} \
                 ] [get_ips $proj]
             }
-            vcu128 {
+            vcu128 or zcu102 {
                 set_property -dict [list \
                     CONFIG.C_NUM_PROBE_OUT {3} \
                     CONFIG.C_PROBE_OUT0_INIT_VAL {0x0} \
