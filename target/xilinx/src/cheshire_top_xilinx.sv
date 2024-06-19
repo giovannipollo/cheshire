@@ -78,6 +78,7 @@ module cheshire_top_xilinx (
 `endif
 
   output logic  uart_tx_o,
+  // output logic  uart_tx_o_2,
   input  logic  uart_rx_i
 );
 
@@ -463,5 +464,7 @@ module cheshire_top_xilinx (
     .uart_tx_o,
     .uart_rx_i
   );
-
+  
+  // assign uart_tx_o_2 = uart_tx_o;
+  
 endmodule
